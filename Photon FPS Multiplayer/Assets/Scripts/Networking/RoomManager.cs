@@ -34,8 +34,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
         Debug.Log("Joined Room");
        
 
-        PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, Quaternion.identity);
-
+        GameObject localPlayer = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, Quaternion.identity);
+        localPlayer.GetComponent<PlayerSetup>().SetupLocalPlayer();
         Debug.Log("Player Spawned");
     }
 }
