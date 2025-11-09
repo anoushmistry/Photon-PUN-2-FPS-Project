@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Photon.Pun;
 public class PlayerSetup : MonoBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
@@ -14,7 +14,7 @@ public class PlayerSetup : MonoBehaviour
     }
     public void SetupLocalPlayer()
     {
-        playerMovement.enabled = true;
-        playerCamera.SetActive(true);
+        playerMovement.enabled = PhotonView.Get(this).IsMine;
+        playerCamera.SetActive(PhotonView.Get(this).IsMine);
     }
 }

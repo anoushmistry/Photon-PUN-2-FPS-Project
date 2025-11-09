@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float walkspeed = 2f;
     [SerializeField] private float runSpeed = 4f;
     [SerializeField] private float maxVelocityChange = 10f;
+    [SerializeField] private float airControlValue = 0.3f;
     [SerializeField] private Vector2 moveInput; // Anoush - Used to just debug value in editor (not useful for assigning value)
     [Space]
     [Header("Player Jump Settings")]
@@ -56,8 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-      
-        rb.AddForce(CalculateMovement(moveSpeed), ForceMode.VelocityChange);
+        rb.AddForce(CalculateMovement(isPlayerGrounded ? moveSpeed : moveSpeed * airControlValue), ForceMode.VelocityChange); // Anoush - Apply movement force while grounded or in air with reduced control
     }
     #endregion
 
@@ -79,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            return new Vector3(0,0,0);
+            return new Vector3(0, 0, 0);
         }
     }
     private void PlayerJump()
